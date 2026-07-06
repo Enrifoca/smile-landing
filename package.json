@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "mkdir -p dist && cp index.html icon-circle-dark.svg icon-circle.svg smile.png dist/"
+    "build": "exit 0"
   }
 }
