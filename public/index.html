@@ -291,7 +291,7 @@
     <header class="hero">
       <p class="hero__eyebrow">open source - MIT license</p>
       <h1 class="hero__title">the desktop framework for vertical ai agents you control</h1>
-      <p class="hero__subtitle">Open-source, local-first, and modular. Scope contexts, build connectors, and use the models you want — all from your desktop.</p>
+      <p class="hero__subtitle">open-source, local-first, and modular. scope contexts, build connectors, and use the models you want — all from your desktop.</p>
       <p class="hero__label">install desktop app</p>
       <a href="https://github.com/enrifoca/smile/releases/latest" class="hero__cta" id="hero-cta">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" id="cta-icon">
@@ -301,7 +301,7 @@
       </a>
     </header>
 
-    <section class="showcase" aria-label="Product preview video">
+    <section class="showcase" aria-label="product preview video">
       <video autoplay muted loop playsinline aria-label="smile:D demo video">
         <source src="demo/smile-v0.2.0.mp4" type="video/mp4">
       </video>
@@ -312,8 +312,8 @@
 
       <article class="feature">
         <div class="feature__content">
-          <h3 class="feature__name">Scope exactly what the agent can access</h3>
-          <p class="feature__desc">Create a context per project and enable only the connectors it needs. Set which tools it can call and which knowledge it can read. The agent never exceeds its scope.</p>
+          <h3 class="feature__name">scope exactly what the agent can access</h3>
+          <p class="feature__desc">create a context per project and enable only the connectors it needs. set which tools it can call and which knowledge it can read. the agent never exceeds its scope.</p>
         </div>
         <div class="feature__media">
           <video autoplay muted loop playsinline aria-label="Context scoping demo">
@@ -324,11 +324,11 @@
 
       <article class="feature">
         <div class="feature__content">
-          <h3 class="feature__name">Build connectors for any tool</h3>
-          <p class="feature__desc">smile:D connectors are just code that expose tools. Build your own for internal APIs, databases, or proprietary systems. A connector SDK is coming soon.</p>
+          <h3 class="feature__name">build connectors for any tool</h3>
+          <p class="feature__desc">smile:D connectors are just code that expose tools. build your own for internal APIs, databases, or proprietary systems. a connector SDK is coming soon.</p>
         </div>
         <div class="feature__media">
-          <video autoplay muted loop playsinline aria-label="Craftable connectors demo">
+          <video autoplay muted loop playsinline aria-label="craftable connectors demo">
             <source src="demo/connectors.mp4" type="video/mp4">
           </video>
         </div>
@@ -336,11 +336,11 @@
 
       <article class="feature">
         <div class="feature__content">
-          <h3 class="feature__name">Use the models you want, your way</h3>
-          <p class="feature__desc">Switch between chat, reasoning, and vision models per task. When a new model comes out, plug it in and try it. No vendor lock-in, no forced interface.</p>
+          <h3 class="feature__name">use the models you want, your way</h3>
+          <p class="feature__desc">switch between chat, reasoning, and vision models per task. when a new model comes out, plug it in and try it. no vendor lock-in, no forced interface.</p>
         </div>
         <div class="feature__media">
-          <video autoplay muted loop playsinline aria-label="Model freedom demo">
+          <video autoplay muted loop playsinline aria-label="model freedom demo">
             <source src="demo/models.mp4" type="video/mp4">
           </video>
         </div>
@@ -348,11 +348,11 @@
 
       <article class="feature">
         <div class="feature__content">
-          <h3 class="feature__name">Approve every action</h3>
-          <p class="feature__desc">The agent pauses before creating, updating, or deleting anything. You see a preview of exactly what it will do, then accept or refuse with one click.</p>
+          <h3 class="feature__name">approve every action</h3>
+          <p class="feature__desc">the agent pauses before creating, updating, or deleting anything. you see a preview of exactly what it will do, then accept or refuse with one click.</p>
         </div>
         <div class="feature__media">
-          <video autoplay muted loop playsinline aria-label="Human in the loop demo">
+          <video autoplay muted loop playsinline aria-label="human in the loop demo">
             <source src="demo/approval.mp4" type="video/mp4">
           </video>
         </div>
@@ -360,11 +360,11 @@
     </section>
 
     <footer class="footer">
-      <p class="footer__copy">MIT License · Built by Enrico Focaccia</p>
+      <p class="footer__copy">MIT license · built by enrico focaccia</p>
       <nav class="footer__links" aria-label="Footer">
-        <a href="https://github.com/enrifoca/smile" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://github.com/enrifoca/smile/releases" target="_blank" rel="noopener">Releases</a>
-        <a href="https://www.linkedin.com/company/smile-agent/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/enrifoca/smile" target="_blank" rel="noopener">github</a>
+        <a href="https://github.com/enrifoca/smile/releases" target="_blank" rel="noopener">releases</a>
+        <a href="https://www.linkedin.com/company/smile-agent/" target="_blank" rel="noopener">linkedin</a>
       </nav>
     </footer>
   </div>
@@ -392,14 +392,14 @@
           if (isMac && macAsset) {
             cta.href = macAsset.browser_download_url;
             iconEl.innerHTML = appleIcon;
-            labelEl.textContent = 'Download for Mac';
+            labelEl.textContent = 'download for mac';
           } else if (isWindows && winAsset) {
             cta.href = winAsset.browser_download_url;
             iconEl.innerHTML = windowsIcon;
-            labelEl.textContent = 'Download for Windows';
+            labelEl.textContent = 'download for windows';
           } else {
             cta.href = release.html_url;
-            labelEl.textContent = 'Download smile:D';
+            labelEl.textContent = 'download smile:D';
           }
         })
         .catch(() => {
