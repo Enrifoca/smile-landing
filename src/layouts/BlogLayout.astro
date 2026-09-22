@@ -1,0 +1,75 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const pageTitle = title ? `${title} — smile:D` : 'smile:D';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{pageTitle}</title>
+  {description && <meta name="description" content={description} />}
+  <meta property="og:title" content={pageTitle} />
+  {description && <meta property="og:description" content={description} />}
+  <meta property="og:image" content="/smile.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/svg+xml" href="/icon-circle-dark.svg" />
+  <style>
+    :root {
+      --bg: #000000;
+      --ink: #ffffff;
+      --muted: #9ca3af;
+      --border: rgba(255,255,255,0.22);
+      --radius-xl: 1.5rem;
+      --radius-lg: 1rem;
+      --radius: 0.75rem;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .page { max-width: 780px; margin: 0 auto; padding: 2rem 3rem 4rem; }
+    @media (max-width: 768px) { .page { padding: 1.25rem 1.5rem 3rem; } }
+
+    .nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4rem; }
+    .nav__brand { font-size: 1.5rem; font-weight: 500; letter-spacing: -0.03em; color: var(--ink); }
+    .nav__link { font-size: 0.9375rem; font-weight: 500; color: var(--muted); transition: color 0.2s; }
+    .nav__link:hover { color: var(--ink); }
+
+    .footer {
+      margin-top: 5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .footer__copy { font-size: 0.8125rem; color: var(--muted); margin: 0; }
+    .footer__links { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    .footer__links a { font-size: 0.8125rem; color: var(--muted); transition: color 0.2s; }
+    .footer__links a:hover { color: var(--ink); }
+  </style>
+</head>
+<body>
+  <slot />
+</body>
+</html>

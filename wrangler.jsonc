@@ -3,7 +3,7 @@
   "name": "smile-landing",
   "compatibility_date": "2026-07-06",
   "assets": {
-    "directory": "./public/"
+    "directory": "./dist/"
   },
   "observability": {
     "enabled": false,

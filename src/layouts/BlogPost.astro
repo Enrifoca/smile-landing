@@ -1,0 +1,51 @@
+---
+import BlogLayout from './BlogLayout.astro';
+
+interface Props {
+  frontmatter: {
+    title: string;
+    date: string;
+    description?: string;
+  };
+}
+
+const { frontmatter } = Astro.props;
+---
+
+<BlogLayout title={frontmatter.title} description={frontmatter.description}>
+  <div class="page">
+    <nav class="nav" aria-label="Primary">
+      <a href="/" class="nav__brand">smile:D</a>
+      <a href="/blog/" class="nav__link">all posts</a>
+    </nav>
+
+    <article>
+      <p class="post__meta">{frontmatter.date}</p>
+      <h1 class="post__title">{frontmatter.title}</h1>
+      <div class="post__content">
+        <slot />
+      </div>
+    </article>
+
+    <footer class="footer">
+      <p class="footer__copy">built by enrico focaccia</p>
+      <nav class="footer__links" aria-label="Footer">
+        <a href="/">home</a>
+        <a href="/blog/">blog</a>
+        <a href="https://github.com/enrifoca/smile" target="_blank" rel="noopener">github</a>
+        <a href="https://www.linkedin.com/company/smile-agent/" target="_blank" rel="noopener">linkedin</a>
+      </nav>
+    </footer>
+  </div>
+
+  <style>
+    .post__meta { font-size: 0.8125rem; color: var(--muted); margin-bottom: 1rem; }
+    .post__title { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 500; letter-spacing: -0.03em; line-height: 1.15; margin: 0 0 1.25rem; }
+    .post__content h2 { font-size: 1.25rem; font-weight: 500; margin: 2.5rem 0 0.75rem; }
+    .post__content p { font-size: 1rem; color: var(--muted); margin: 0 0 1.25rem; }
+    .post__content ul { margin: 0 0 1.25rem; padding-left: 1.25rem; color: var(--muted); }
+    .post__content li { margin-bottom: 0.5rem; }
+    .post__content a { text-decoration: underline; color: var(--ink); }
+    .post__content strong { color: var(--ink); }
+  </style>
+</BlogLayout>
