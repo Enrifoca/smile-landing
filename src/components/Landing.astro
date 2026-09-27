@@ -1,0 +1,726 @@
+---
+import type { Translations } from "../i18n/translations";
+
+export interface Props {
+  lang: "it" | "en";
+  t: Translations;
+}
+
+const { lang, t } = Astro.props;
+const otherLang = lang === "it" ? "en" : "it";
+const otherUrl = lang === "it" ? "/en/" : "/";
+const canonicalUrl = lang === "it" ? "https://smile-agent.dev/" : "https://smile-agent.dev/en/";
+const alternateIt = "https://smile-agent.dev/";
+const alternateEn = "https://smile-agent.dev/en/";
+const flagCurrent = lang === "it" ? "🇮🇹" : "🇬🇧";
+const flagSwitch = lang === "it" ? "🇬🇧" : "🇮🇹";
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{t.meta.title}</title>
+  <meta name="description" content={t.meta.description} />
+  <meta property="og:title" content={t.meta.ogTitle} />
+  <meta property="og:description" content={t.meta.ogDescription} />
+  <meta property="og:image" content="/smile.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href={canonicalUrl} />
+  <link rel="alternate" hreflang="it" href={alternateIt} />
+  <link rel="alternate" hreflang="en" href={alternateEn} />
+  <link rel="alternate" hreflang="x-default" href={alternateIt} />
+  <link rel="icon" type="image/svg+xml" href="/icon-circle.svg" />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "smile:D",
+        "url": canonicalUrl,
+        "description": t.meta.description,
+        "inLanguage": lang
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "smile:D",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "macOS, Windows, Linux",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "url": canonicalUrl,
+        "description": t.meta.description,
+        "inLanguage": lang
+      }
+    ]
+  })} />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f8fafc;
+      --ink: #0f172a;
+      --muted: #475569;
+      --border: rgba(15,23,42,0.10);
+      --radius-xl: 1.25rem;
+      --radius-lg: 0.875rem;
+      --radius: 0.625rem;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.55;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+    .page {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 2rem 3rem 4rem;
+    }
+    @media (max-width: 768px) {
+      .page { padding: 1.25rem 1.5rem 3rem; }
+    }
+
+    /* Nav */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 5rem;
+      position: relative;
+    }
+    .nav__left, .nav__right { flex: 1; display: flex; gap: 0.75rem; align-items: center; }
+    .nav__left { justify-content: flex-start; }
+    .nav__right { justify-content: flex-end; }
+    .nav__brand {
+      flex: 0 0 auto;
+      font-size: 2rem;
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+    }
+    .nav__link {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 0.35rem 0;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav__link:hover { color: var(--ink); border-color: var(--ink); }
+    .nav__lang {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--muted);
+      padding: 0.25rem 0.5rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav__lang:hover { color: var(--ink); border-color: var(--ink); }
+    .nav__flag { font-size: 1rem; line-height: 1; }
+    .nav__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--ink);
+      background: var(--bg);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .nav__btn:hover { border-color: var(--ink); background: var(--surface); }
+    .nav__btn svg { width: 1.125rem; height: 1.125rem; }
+    .nav__btn--primary {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+    }
+    .nav__btn--primary:hover { background: var(--bg); color: var(--ink); }
+
+    @media (max-width: 768px) {
+      .nav__right { display: none; }
+      .nav { margin-bottom: 3.5rem; }
+      .nav__brand { order: 1; flex: 1; }
+      .nav__left { order: 2; flex: 0 0 auto; }
+    }
+
+    /* Hero */
+    .hero {
+      max-width: 760px;
+      margin: 0 auto 3.5rem;
+      text-align: left;
+    }
+    .hero__eyebrow {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      letter-spacing: 0.02em;
+    }
+    .hero__title {
+      font-size: clamp(2.5rem, 5.5vw, 4rem);
+      font-weight: 500;
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      margin: 0 0 1.25rem;
+    }
+    .hero__subtitle {
+      font-size: 1.1875rem;
+      color: var(--muted);
+      margin: 0 0 1rem;
+      line-height: 1.6;
+      max-width: 640px;
+    }
+    .hero__target {
+      font-size: 1.0625rem;
+      color: var(--muted);
+      margin: 0 0 2.5rem;
+    }
+    .hero__cta-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .hero__cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.95rem 1.5rem;
+      border: 1.5px solid var(--ink);
+      border-radius: var(--radius);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--ink);
+      background: transparent;
+      transition: background 0.2s, color 0.2s;
+    }
+    .hero__cta:hover { background: var(--ink); color: var(--bg); }
+    .hero__cta--primary {
+      background: var(--ink);
+      color: var(--bg);
+    }
+    .hero__cta--primary:hover { background: var(--bg); color: var(--ink); }
+    .hero__cta svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      flex-shrink: 0;
+    }
+    @media (max-width: 768px) {
+      .hero__cta-row { flex-direction: column; align-items: stretch; }
+      .hero__cta { width: 100%; }
+    }
+
+    /* Video / screenshot */
+    .showcase {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-xl);
+      aspect-ratio: 16 / 9;
+      display: grid;
+      place-items: center;
+      margin-bottom: 5rem;
+      background: var(--surface);
+      overflow: hidden;
+    }
+    .showcase video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: inherit;
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 5rem;
+    }
+    .section__title {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .section__headline {
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin: 0 0 1rem;
+    }
+    .section__lede {
+      font-size: 1.0625rem;
+      color: var(--muted);
+      max-width: 640px;
+      margin: 0 0 2rem;
+      line-height: 1.6;
+    }
+
+    /* Feature grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    @media (max-width: 768px) {
+      .feature-grid { grid-template-columns: 1fr; }
+    }
+    .feature-card {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      background: var(--bg);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover { border-color: var(--ink); box-shadow: 0 4px 20px rgba(15,23,42,0.05); }
+    .feature-card__icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      display: grid;
+      place-items: center;
+      margin-bottom: 1rem;
+      background: var(--surface);
+    }
+    .feature-card__icon svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      color: var(--ink);
+    }
+    .feature-card__name {
+      font-size: 1.15rem;
+      font-weight: 500;
+      margin: 0 0 0.5rem;
+    }
+    .feature-card__desc {
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* Steps */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      counter-reset: step;
+    }
+    @media (max-width: 900px) {
+      .steps { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 520px) {
+      .steps { grid-template-columns: 1fr; }
+    }
+    .step {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      background: var(--bg);
+      position: relative;
+    }
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.75rem;
+      height: 1.75rem;
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      background: var(--surface);
+    }
+    .step__name {
+      font-size: 1rem;
+      font-weight: 500;
+      margin: 0 0 0.4rem;
+    }
+    .step__desc {
+      font-size: 0.875rem;
+      line-height: 1.55;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* Final CTA */
+    .cta-band {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 3rem;
+      background: var(--surface);
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      .cta-band { padding: 2rem 1.5rem; }
+    }
+    .cta-band__title {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.75rem;
+    }
+    .cta-band__desc {
+      font-size: 1rem;
+      color: var(--muted);
+      margin: 0 auto 1.75rem;
+      max-width: 460px;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .footer__copy {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      margin: 0;
+    }
+    .footer__links {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .footer__links a {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .footer__links a:hover { color: var(--ink); }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: grid;
+      place-items: center;
+      padding: 1.5rem;
+      background: rgba(15,23,42,0.55);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s, visibility 0.2s;
+    }
+    .modal.is-open { opacity: 1; visibility: visible; }
+    .modal__panel {
+      width: 100%;
+      max-width: 480px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-xl);
+      background: var(--bg);
+      padding: 1.75rem;
+      transform: translateY(8px);
+      transition: transform 0.2s;
+      box-shadow: 0 24px 60px rgba(15,23,42,0.18);
+    }
+    .modal.is-open .modal__panel { transform: translateY(0); }
+    .modal__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .modal__title {
+      font-size: 1.35rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+    .modal__close {
+      width: 2rem;
+      height: 2rem;
+      display: grid;
+      place-items: center;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--muted);
+      background: var(--bg);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .modal__close:hover { color: var(--ink); border-color: var(--ink); }
+    .form__group { margin-bottom: 1rem; }
+    .form__label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 0.35rem;
+      color: var(--ink);
+    }
+    .form__input,
+    .form__textarea {
+      width: 100%;
+      padding: 0.75rem 0.9rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 0.9375rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form__input:focus,
+    .form__textarea:focus { border-color: var(--ink); }
+    .form__input::placeholder,
+    .form__textarea::placeholder { color: #94a3b8; }
+    .form__textarea { min-height: 120px; resize: vertical; }
+    .form__submit {
+      width: 100%;
+      padding: 0.9rem;
+      border: 1.5px solid var(--ink);
+      border-radius: var(--radius);
+      background: var(--ink);
+      color: var(--bg);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      transition: background 0.2s, color 0.2s;
+    }
+    .form__submit:hover { background: var(--bg); color: var(--ink); }
+    .form__note {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      margin-top: 0.75rem;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page">
+    <nav class="nav" aria-label={lang === "it" ? "Primaria" : "Primary"}>
+      <div class="nav__left">
+        <a href="/blog/" class="nav__link">{t.nav.blog}</a>
+        <a href={otherUrl} class="nav__lang" aria-label={t.lang.aria}>
+          <span class="nav__flag">{flagSwitch}</span>
+          <span>{t.lang.switch}</span>
+        </a>
+      </div>
+      <div class="nav__brand">smile:D</div>
+      <div class="nav__right">
+        <a href="https://github.com/enrifoca/smile" class="nav__btn" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"/>
+          </svg>
+          {t.nav.github}
+        </a>
+        <button class="nav__btn nav__btn--primary" data-open-demo aria-label={t.nav.demo}>
+          {t.nav.demo}
+        </button>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <p class="hero__eyebrow">{t.hero.eyebrow}</p>
+      <h1 class="hero__title">{t.hero.title}</h1>
+      <p class="hero__subtitle">{t.hero.subtitle}</p>
+      <p class="hero__target">{t.hero.target}</p>
+      <div class="hero__cta-row">
+        <button class="hero__cta hero__cta--primary" data-open-demo>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          {t.hero.ctaDemo}
+        </button>
+        <a href="https://github.com/enrifoca/smile" class="hero__cta" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"/>
+          </svg>
+          {t.hero.ctaGithub}
+        </a>
+      </div>
+    </header>
+
+    <section class="showcase" aria-label={t.showcase.label}>
+      <video autoplay muted loop playsinline aria-label={t.showcase.videoLabel}>
+        <source src="/demo/smile-v0.2.0.mp4" type="video/mp4">
+      </video>
+    </section>
+
+    <section class="section" aria-labelledby="built-heading">
+      <p id="built-heading" class="section__title">{t.features.title}</p>
+      <h2 class="section__headline">{t.features.headline}</h2>
+      <p class="section__lede">{t.features.lede}</p>
+
+      <div class="feature-grid">
+        {t.features.items.map((item) => (
+          <article class="feature-card">
+            <div class="feature-card__icon">
+              {item.name === "Open source" ? (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              ) : item.name === "Scegli il modello" || item.name === "Use any model" ? (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+              ) : item.name === "Ottimizzato per modelli leggeri" || item.name === "Optimized for small models" ? (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              ) : item.name === "Connettori su misura" || item.name === "Custom connectors" ? (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              ) : item.name === "Report" || item.name === "Reports" ? (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              ) : (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              )}
+            </div>
+            <h3 class="feature-card__name">{item.name}</h3>
+            <p class="feature-card__desc">{item.desc}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="how-heading">
+      <p id="how-heading" class="section__title">{t.steps.title}</p>
+      <h2 class="section__headline">{t.steps.headline}</h2>
+      <p class="section__lede">{t.steps.lede}</p>
+
+      <div class="steps">
+        {t.steps.items.map((item) => (
+          <article class="step">
+            <h3 class="step__name">{item.name}</h3>
+            <p class="step__desc">{item.desc}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section cta-band" aria-labelledby="cta-heading">
+      <h2 id="cta-heading" class="cta-band__title">{t.cta.title}</h2>
+      <p class="cta-band__desc">{t.cta.desc}</p>
+      <button class="hero__cta hero__cta--primary" data-open-demo>{t.cta.btn}</button>
+    </section>
+
+    <footer class="footer">
+      <p class="footer__copy">{t.footer.copy}</p>
+      <nav class="footer__links" aria-label="Footer">
+        <a href="/blog/">{t.footer.blog}</a>
+        <a href="https://github.com/enrifoca/smile" target="_blank" rel="noopener">{t.footer.github}</a>
+        <a href="https://github.com/enrifoca/smile/releases" target="_blank" rel="noopener">{t.footer.releases}</a>
+        <a href="https://www.linkedin.com/company/smile-agent/" target="_blank" rel="noopener">{t.footer.linkedin}</a>
+      </nav>
+    </footer>
+  </div>
+
+  <div class="modal" id="demo-modal" role="dialog" aria-modal="true" aria-labelledby="demo-title">
+    <div class="modal__panel">
+      <div class="modal__header">
+        <h2 id="demo-title" class="modal__title">{t.modal.title}</h2>
+        <button class="modal__close" data-close-demo aria-label={t.modal.close}>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <form id="demo-form">
+        <div class="form__group">
+          <label class="form__label" for="demo-email">{t.modal.emailLabel}</label>
+          <input class="form__input" type="email" id="demo-email" name="email" placeholder={t.modal.emailPlaceholder} required />
+        </div>
+        <div class="form__group">
+          <label class="form__label" for="demo-company">{t.modal.companyLabel}</label>
+          <input class="form__input" type="text" id="demo-company" name="company" placeholder={t.modal.companyPlaceholder} />
+        </div>
+        <div class="form__group">
+          <label class="form__label" for="demo-message">{t.modal.messageLabel}</label>
+          <textarea class="form__textarea" id="demo-message" name="message" placeholder={t.modal.messagePlaceholder} required></textarea>
+        </div>
+        <button type="submit" class="form__submit">{t.modal.submit}</button>
+        <p class="form__note" set:html={t.modal.note("hello@smile-agent.dev")} />
+      </form>
+    </div>
+  </div>
+
+  <script define:vars={{
+    CONTACT_EMAIL: "hello@smile-agent.dev",
+    subject: t.mailto.subject,
+    intro: lang === "it" ? "Ciao, vorrei richiedere una demo di smile:D." : "Hi, I would like to request a demo of smile:D.",
+    emailPrefix: lang === "it" ? "Email: " : "Email: ",
+    companyPrefix: lang === "it" ? "Azienda: " : "Company: ",
+    useCasePrefix: lang === "it" ? "Caso d'uso:" : "Use case:"
+  }}>
+    (function () {
+      // Demo modal
+      const modal = document.getElementById('demo-modal');
+      const openBtns = document.querySelectorAll('[data-open-demo]');
+      const closeBtn = document.querySelector('[data-close-demo]');
+
+      function openModal() {
+        modal.classList.add('is-open');
+        document.getElementById('demo-email').focus();
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        modal.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+
+      openBtns.forEach(btn => btn.addEventListener('click', openModal));
+      closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal(); });
+
+      // Demo form -> mailto
+      const form = document.getElementById('demo-form');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const email = document.getElementById('demo-email').value.trim();
+        const company = document.getElementById('demo-company').value.trim();
+        const message = document.getElementById('demo-message').value.trim();
+
+        const body = [
+          intro,
+          '',
+          emailPrefix + email,
+          company ? companyPrefix + company : '',
+          '',
+          useCasePrefix,
+          message
+        ].join('\n');
+
+        window.location.href = 'mailto:' + CONTACT_EMAIL +
+          '?subject=' + encodeURIComponent(subject) +
+          '&body=' + encodeURIComponent(body);
+
+        closeModal();
+      });
+
+    })();
+  </script>
+
+</body>
+</html>
