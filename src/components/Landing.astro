@@ -413,6 +413,11 @@ const flagSwitch = lang === "it" ? "🇬🇧" : "🇮🇹";
     }
     .footer__links {
       display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .footer__group {
+      display: flex;
       gap: 1.25rem;
       flex-wrap: wrap;
     }
@@ -539,6 +544,12 @@ const flagSwitch = lang === "it" ? "🇬🇧" : "🇮🇹";
           {t.nav.github}
         </a>
         <button class="nav__btn nav__btn--primary" data-open-demo aria-label={t.nav.demo}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
           {t.nav.demo}
         </button>
       </div>
@@ -628,13 +639,17 @@ const flagSwitch = lang === "it" ? "🇬🇧" : "🇮🇹";
     <footer class="footer">
       <p class="footer__copy">{t.footer.copy}</p>
       <nav class="footer__links" aria-label="Footer">
-        <a href="/blog/">{t.footer.blog}</a>
-        <a href="https://github.com/enrifoca/smile" target="_blank" rel="noopener">{t.footer.github}</a>
-        <a href="https://github.com/enrifoca/smile/releases" target="_blank" rel="noopener">{t.footer.releases}</a>
-        <a href="https://www.linkedin.com/company/smile-agent/" target="_blank" rel="noopener">{t.footer.linkedin}</a>
-        <a href={lang === "it" ? "/privacy/" : "/en/privacy/"}>{t.footer.privacy}</a>
-        <a href={lang === "it" ? "/cookies/" : "/en/cookies/"}>{t.footer.cookies}</a>
-        <a href={lang === "it" ? "/terms/" : "/en/terms/"}>{t.footer.terms}</a>
+        <div class="footer__group">
+          <a href="/blog/">{t.footer.blog}</a>
+          <a href="https://github.com/enrifoca/smile" target="_blank" rel="noopener">{t.footer.github}</a>
+          <a href="https://github.com/enrifoca/smile/releases" target="_blank" rel="noopener">{t.footer.releases}</a>
+          <a href="https://www.linkedin.com/company/smile-agent/" target="_blank" rel="noopener">{t.footer.linkedin}</a>
+        </div>
+        <div class="footer__group">
+          <a href={lang === "it" ? "/privacy/" : "/en/privacy/"}>{t.footer.privacy}</a>
+          <a href={lang === "it" ? "/cookies/" : "/en/cookies/"}>{t.footer.cookies}</a>
+          <a href={lang === "it" ? "/terms/" : "/en/terms/"}>{t.footer.terms}</a>
+        </div>
       </nav>
     </footer>
   </div>
@@ -661,13 +676,13 @@ const flagSwitch = lang === "it" ? "🇬🇧" : "🇮🇹";
           <textarea class="form__textarea" id="demo-message" name="message" placeholder={t.modal.messagePlaceholder} required></textarea>
         </div>
         <button type="submit" class="form__submit">{t.modal.submit}</button>
-        <p class="form__note" set:html={t.modal.note("hello@smile-agent.dev")} />
+        <p class="form__note" set:html={t.modal.note("info@smile-agent.dev")} />
       </form>
     </div>
   </div>
 
   <script define:vars={{
-    CONTACT_EMAIL: "hello@smile-agent.dev",
+    CONTACT_EMAIL: "info@smile-agent.dev",
     subject: t.mailto.subject,
     intro: lang === "it" ? "Ciao, vorrei richiedere una demo di smile:D." : "Hi, I would like to request a demo of smile:D.",
     emailPrefix: lang === "it" ? "Email: " : "Email: ",
