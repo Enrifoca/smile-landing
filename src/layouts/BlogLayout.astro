@@ -21,16 +21,17 @@ const pageTitle = title ? `${title} — smile:D` : 'smile:D';
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="robots" content="index, follow" />
-  <link rel="icon" type="image/svg+xml" href="/icon-circle-dark.svg" />
+  <link rel="icon" type="image/svg+xml" href="/icon-circle.svg" />
   <style>
     :root {
-      --bg: #000000;
-      --ink: #ffffff;
-      --muted: #9ca3af;
-      --border: rgba(255,255,255,0.22);
-      --radius-xl: 1.5rem;
+      --bg: #ffffff;
+      --surface: #f8fafc;
+      --ink: #0f172a;
+      --muted: #475569;
+      --border: rgba(15,23,42,0.10);
+      --radius-xl: 1.25rem;
       --radius-lg: 1rem;
-      --radius: 0.75rem;
+      --radius: 0.625rem;
       --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
     }
     *, *::before, *::after { box-sizing: border-box; }
@@ -50,8 +51,8 @@ const pageTitle = title ? `${title} — smile:D` : 'smile:D';
 
     .nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4rem; }
     .nav__brand { font-size: 1.5rem; font-weight: 500; letter-spacing: -0.03em; color: var(--ink); }
-    .nav__link { font-size: 0.9375rem; font-weight: 500; color: var(--muted); transition: color 0.2s; }
-    .nav__link:hover { color: var(--ink); }
+    .nav__link { font-size: 0.9375rem; font-weight: 500; color: var(--muted); padding: 0.35rem 0; border-bottom: 1px solid transparent; transition: color 0.2s, border-color 0.2s; }
+    .nav__link:hover { color: var(--ink); border-color: var(--ink); }
 
     .footer {
       margin-top: 5rem;
@@ -70,6 +71,24 @@ const pageTitle = title ? `${title} — smile:D` : 'smile:D';
   </style>
 </head>
 <body>
-  <slot />
+  <div class="page">
+    <nav class="nav" aria-label="Primary">
+      <a href="/" class="nav__brand">smile:D</a>
+      <a href="/" class="nav__link">Home</a>
+    </nav>
+
+    <slot />
+
+    <footer class="footer">
+      <p class="footer__copy">Built by Enrico Focaccia</p>
+      <nav class="footer__links" aria-label="Footer">
+        <a href="/">Home</a>
+        <a href="/blog/">Blog</a>
+        <a href="/privacy/">Privacy Policy</a>
+        <a href="/cookies/">Cookie Policy</a>
+        <a href="/terms/">Terms of Service</a>
+      </nav>
+    </footer>
+  </div>
 </body>
 </html>
