@@ -50,6 +50,9 @@ export interface Translations {
     github: string;
     releases: string;
     linkedin: string;
+    privacy: string;
+    cookies: string;
+    terms: string;
   };
   modal: {
     title: string;
@@ -104,9 +107,9 @@ export const it: Translations = {
   },
   features: {
     title: "Cosa ottieni",
-    headline: "Un agente connesso a tutto ciò che usi",
+    headline: "Un workspace AI connesso a tutto ciò che usi",
     lede:
-      "Non vendiamo posti a un assistente generico. Progettiamo i moduli, i connettori e i flussi di approvazione di cui il tuo team ha bisogno, poi ti consegniamo un agente desktop che i tuoi dipendenti possono installare.",
+      "Offriamo un workspace AI con agenti personalizzati sul modo di lavorare dei tuoi team. Progettiamo i moduli, i connettori e i flussi di approvazione di cui hai bisogno, poi ti consegniamo un'applicazione desktop che i tuoi dipendenti possono installare.",
     items: [
       {
         name: "Open source",
@@ -180,6 +183,9 @@ export const it: Translations = {
     github: "GitHub",
     releases: "Releases",
     linkedin: "LinkedIn",
+    privacy: "Privacy Policy",
+    cookies: "Cookie Policy",
+    terms: "Termini di Servizio",
   },
   modal: {
     title: "Richiedi una demo",
@@ -245,9 +251,9 @@ export const en: Translations = {
   },
   features: {
     title: "What you get",
-    headline: "An agent connected to everything you use",
+    headline: "An AI workspace connected to everything you use",
     lede:
-      "We don't sell seats to a generic assistant. We design the modules, connectors, and approval flows your team needs, then hand you a desktop agent your employees can install.",
+      "We offer an AI workspace with agents tailored to how your teams work. We design the modules, connectors, and approval flows you need, then hand you a desktop app your employees can install.",
     items: [
       {
         name: "Open source",
@@ -321,6 +327,9 @@ export const en: Translations = {
     github: "GitHub",
     releases: "Releases",
     linkedin: "LinkedIn",
+    privacy: "Privacy Policy",
+    cookies: "Cookie Policy",
+    terms: "Terms of Service",
   },
   modal: {
     title: "Request a demo",

@@ -1,0 +1,131 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  lang?: "it" | "en";
+}
+
+const { title, description, lang = "it" } = Astro.props;
+const pageTitle = title ? `${title} — smile:D` : "smile:D";
+const homeUrl = lang === "it" ? "/" : "/en/";
+const backLabel = lang === "it" ? "Torna alla home" : "Back to home";
+const privacyUrl = lang === "it" ? "/privacy/" : "/en/privacy/";
+const cookiesUrl = lang === "it" ? "/cookies/" : "/en/cookies/";
+const termsUrl = lang === "it" ? "/terms/" : "/en/terms/";
+const privacyLabel = lang === "it" ? "Privacy Policy" : "Privacy Policy";
+const cookiesLabel = lang === "it" ? "Cookie Policy" : "Cookie Policy";
+const termsLabel = lang === "it" ? "Termini di Servizio" : "Terms of Service";
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{pageTitle}</title>
+  {description && <meta name="description" content={description} />}
+  <meta property="og:title" content={pageTitle} />
+  {description && <meta property="og:description" content={description} />}
+  <meta property="og:image" content="/smile.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/svg+xml" href="/icon-circle.svg" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f8fafc;
+      --ink: #0f172a;
+      --muted: #475569;
+      --border: rgba(15,23,42,0.10);
+      --radius-xl: 1.25rem;
+      --radius: 0.625rem;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .page { max-width: 780px; margin: 0 auto; padding: 2rem 3rem 4rem; }
+    @media (max-width: 768px) { .page { padding: 1.25rem 1.5rem 3rem; } }
+
+    .nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4rem; }
+    .nav__brand { font-size: 1.5rem; font-weight: 500; letter-spacing: -0.03em; color: var(--ink); }
+    .nav__link { font-size: 0.9375rem; font-weight: 500; color: var(--muted); transition: color 0.2s; }
+    .nav__link:hover { color: var(--ink); }
+
+    .legal {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+      background: var(--surface);
+    }
+    @media (max-width: 768px) { .legal { padding: 1.5rem; } }
+    .legal h1 {
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin: 0 0 1rem;
+    }
+    .legal h2 {
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin: 2rem 0 0.75rem;
+    }
+    .legal p, .legal li {
+      font-size: 1rem;
+      color: var(--muted);
+      margin: 0 0 1rem;
+    }
+    .legal ul { margin: 0 0 1rem; padding-left: 1.25rem; }
+    .legal li { margin-bottom: 0.5rem; }
+    .legal a { color: var(--ink); text-decoration: underline; }
+
+    .footer {
+      margin-top: 5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .footer__copy { font-size: 0.8125rem; color: var(--muted); margin: 0; }
+    .footer__links { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    .footer__links a { font-size: 0.8125rem; color: var(--muted); transition: color 0.2s; }
+    .footer__links a:hover { color: var(--ink); }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <nav class="nav" aria-label={lang === "it" ? "Primaria" : "Primary"}>
+      <a href={homeUrl} class="nav__brand">smile:D</a>
+      <a href={homeUrl} class="nav__link">{backLabel}</a>
+    </nav>
+
+    <main class="legal">
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <p class="footer__copy">{lang === "it" ? "Realizzato da Enrico Focaccia" : "Built by Enrico Focaccia"}</p>
+      <nav class="footer__links" aria-label="Footer">
+        <a href={homeUrl}>{lang === "it" ? "Home" : "Home"}</a>
+        <a href={privacyUrl}>{privacyLabel}</a>
+        <a href={cookiesUrl}>{cookiesLabel}</a>
+        <a href={termsUrl}>{termsLabel}</a>
+      </nav>
+    </footer>
+  </div>
+</body>
+</html>
